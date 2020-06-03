@@ -2,7 +2,7 @@
 
 ## Feature Roadmap
 * [x] Create Tests
-* [ ] Create Marking Schemes
+* [x] Create Marking Schemes
 * [x] Implement Timer
-* [ ] Add Evalautor
+* [x] Add Evaluator
 
