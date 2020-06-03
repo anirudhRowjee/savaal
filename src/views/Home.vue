@@ -41,12 +41,12 @@
                     :key='ms.name'
                     :value='ms.name'
                     @select="handleSelect(ms)"
-                    @click="handleSelect(ms)"
+                    @click.native="handleSelect(ms)"
                     >
                     {{ ms.name }}
                   </b-form-select-option>
                     <b-form-select-option value='custom' @select='changeReadonlyStatus(false)'
-                                          @click ='changeReadonlyStatus(false)' selected>
+                                          @click.native ='changeReadonlyStatus(false)' selected>
                       Custom
                     </b-form-select-option>
                 </b-form-select>
@@ -116,7 +116,7 @@
                 label-for='start-cta-button'
                 v-if='test.markingScheme.correct && test.markingScheme.incorrect'
                 >
-                <b-btn id='start-cta-button' @click='submitTest' variant='success'> Let's Go Practice! </b-btn>
+                <b-btn id='start-cta-button' @click.native='submitTest' variant='success'> Let's Go Practice! </b-btn>
               </b-form-group>
               </b-form>
           </b-card-body>
