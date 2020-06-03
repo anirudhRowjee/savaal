@@ -4,7 +4,10 @@
     <div class='container'>
       <test_topbar 
         :startFlag.sync='startTest'
-        :time='time'
+        :time='getTestTime'
+        @complete='handleEvaluate'
+        @evaluate-test='handleEvaluate' 
+        @exit-test='handleExit'
         />
     </div>
 
@@ -16,7 +19,6 @@
           :currentQuestion.sync='currentQuestion'
           @change-question='setQuestion'
           @update-question='handleUpdateQuestion'
-
           />
       </b-col>
 
@@ -27,6 +29,7 @@
           :questions.sync='questions'
           @change-question='setQuestion'
           :currentQuestion.sync='currentQuestion'
+          @evaluate-test='handleEvaluate'
           />
       </b-col>
 
@@ -43,6 +46,8 @@ import test_topbar from '../components/test_topbar'
 import test_questionbox from '../components/test_questionbox'
 import test_questionlist from '../components/test_questionlist'
 
+import { mapGetters, mapMutations } from 'vuex'
+
 
 export default {
 
@@ -56,8 +61,10 @@ export default {
 
   data: function() {
     return {
-      startTest: true,
+      startTest: false,
       questions: [],
+      countQuestions: 90,
+      toggleTestVisibility: false,
       time: 180,
       currentQuestion: {
         id: '',
@@ -70,6 +77,11 @@ export default {
   },
 
   methods: {
+
+    ...mapMutations({
+      setQuestions: 'setQuestions',
+      setTotalMarks: 'setTotalMarks',
+    }),
 
     getTestQuestions(limit) {
       var flag = 1;
@@ -109,9 +121,7 @@ export default {
         console.log(newQuestion)
         this.currentQuestion = newQuestion
         return newQuestion
-      }
-      else
-      {
+      } else {
         this.saveQuestion(this.currentQuestion.id)
         console.log("setting to ", qno)
         var OthernewQuestion = this.getQuestionByNumber(qno)
@@ -128,32 +138,63 @@ export default {
 
     },
 
-    generateAnswerString(){
-      // generate answerstrings in evaluatable format
-      var kvp = {}
-      this.questions.map( q => {
-        kvp.push({
-          'id': q.id, 
-          'choice': q.choice
-        })
-      })
-      console.log(kvp)
-      return kvp
+    // evaluator method
+    handleEvaluate(){
+      console.log("EVALUATION PROCESS BEGINNING")
+      console.log("saving questions to state")
+      this.setQuestions(this.questions)
+      console.log("reading questions from state")
+      console.log(this.getQuestions)
+      this.$router.push('/correction')
     },
 
-    // evaluator method
-    evaluate(){
-      console.log("EVALUATION PROCESS BEGINNING")
-    }
+    handleExit(){
+      var c = confirm("Do You Really Want to Exit?")
+      if ( c == true ){
+        console.log("Exiting ...")
+        this.$router.push('/')
+      } else {
+        alert("get back!")
+      }
+    },
+
+    startTestLoop(){
+      var choice = confirm("Do You Want to Start the Test?")
+      if ( choice ){
+        this.toggleTestVisibility = true
+        this.startTest = true
+      } else {
+        alert("Exiting..")
+        this.handleExit()
+      }
+    },
   },
 
+  computed: {
+    ...mapGetters({
+      getTestTime: 'getTestTime',
+      getQuestionsCount: 'getQuestionsCount',
+      getMarkingScheme: 'getMarkingScheme',
+      getQuestions: 'getQuestions',
+    }),
+  },
 
   mounted() {
-    this.questions = this.getTestQuestions(90);
-    console.log(this.questions)
-    this.instartup = true;
-    this.setQuestion(1);
-    this.instartup = false;
+    // first check if the page has been accessed only after making the test (route guard)
+    this.countQuestions = this.getQuestionsCount
+    this.time = this.getTestTime
+    if ( this.time == null || this.countQuestions == null ){
+      alert("Please Create a Test First")
+      this.$router.push('/')
+    } else {
+      this.questions = this.getTestQuestions(Number(this.countQuestions));
+      console.log(this.questions)
+      this.startTestLoop()
+      this.instartup = true;
+      this.setQuestion(1);
+      this.instartup = false;
+      this.setTotalMarks()
+    }
   }
 
 }
@@ -170,7 +211,7 @@ b-col {
 }
 
 #testcontainer{
-  background-color: black;
+  background-color: white;
 }
 
 </style>

@@ -20,7 +20,7 @@
 
       </b-card-text>
 
-        <b-btn variant='outline-success'> Submit Test </b-btn>
+        <b-btn @click='this.$emit("evaluate-test")' variant='outline-success'> Submit Test </b-btn>
 
       <br>
     </b-card>
@@ -101,14 +101,9 @@ export default {
 }
 
 .question_jumpbutton{
-    background-color: lightgrey;
     color: black;
     height:  fixed;
-    font-size: 3px;
-}
-
-.question_jumpbutton :hover{
-    pointer-events: none;
+    font-size: 2vh;
 
 }
 

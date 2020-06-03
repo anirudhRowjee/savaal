@@ -55,16 +55,10 @@ export default {
       alert("Complete")
     },
     emitEvaluateTest() {
-      var choice = confirm("Do You want to submit the test for evaluation?")
-      if (choice) {
-        this.$emit('evaluate-test')
-      }
+      this.$emit('evaluate-test')
     },
     emitExitFromTest() {
-      var choice = confirm("Exit From Test?")
-      if (choice) {
-        this.$emit('exit-from-test')
-      }
+        this.$emit('exit-test')
     }
   },
   // TODO add method to get time from the timer
@@ -86,7 +80,7 @@ export default {
 
 #topbar_container{
   border: none;
-  background-color: black;
+  background-color: white;
 }
 
 </style>

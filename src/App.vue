@@ -8,9 +8,13 @@
 <style lang="scss">
 
 .rv {
+  min-height: 50vw;
   min-width: 100vw;
-  min-height: 100vw;
   text-align: center;
+}
+
+.footer{
+  position: absolute;
 }
 
 </style>

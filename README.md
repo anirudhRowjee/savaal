@@ -1,8 +1,8 @@
 # Savaal - Simple Computer Based Test Framework
 
 ## Feature Roadmap
-* [ ] Create Tests
+* [x] Create Tests
 * [ ] Create Marking Schemes
-* [ ] Implement Timer
+* [x] Implement Timer
 * [ ] Add Evalautor
 

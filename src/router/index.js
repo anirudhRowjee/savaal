@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Test from '../views/Test.vue'
 
 Vue.use(VueRouter)
 
@@ -9,12 +7,22 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
   },
   {
     path: '/test',
     name: 'Test Home Page',
-    component: Test
+    component: () => import(/* webpackChunkName: "test" */ '../views/Test.vue')
+  },
+  {
+    path: '/correction',
+    name: 'Correction Page',
+    component: () => import(/* webpackChunkName: "correction" */ '../views/Correction.vue')
+  },
+  {
+    path: '/results',
+    name: 'Results Page',
+    component: () => import(/* webpackChunkName: "results" */ '../views/Results.vue')
   },
   {
     path: '/about',
