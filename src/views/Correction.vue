@@ -2,7 +2,7 @@
   <div>
     <b-container>
       <b-jumbotron 
-        bg-variant='warning' 
+        bg-variant='white' 
         header='Correction'
         lead='Please Provide the answers as per the Answer Key!'
         >
@@ -26,7 +26,6 @@
               </b-input-group-append>
           </b-input-group>
         </b-form-group>
-
       </b-jumbotron>
       <b-card-group deck>
         <b-card title='What is Codex?'>
@@ -141,6 +140,9 @@ export default {
       alert("Please Create A Test First!")
       this.$router.push('/')
     }
+  },
+  created(){
+    document.title = this.$route.meta.title;
   }
 }
 </script>

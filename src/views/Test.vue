@@ -228,6 +228,10 @@ export default {
       this.instartup = false;
       this.setTotalMarks()
     }
+  },
+
+  created(){
+    document.title = this.$route.meta.title;
   }
 
 }

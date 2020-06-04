@@ -7,22 +7,34 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
+    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
+    meta: {
+      title: 'Savaal - Free Computer Based Test at Home'
+    }
   },
   {
     path: '/test',
     name: 'Test Home Page',
-    component: () => import(/* webpackChunkName: "test" */ '../views/Test.vue')
+    component: () => import(/* webpackChunkName: "test" */ '../views/Test.vue'),
+    meta: {
+      title: 'Test - Savaal'
+    }
   },
   {
     path: '/correction',
     name: 'Correction Page',
-    component: () => import(/* webpackChunkName: "correction" */ '../views/Correction.vue')
+    component: () => import(/* webpackChunkName: "correction" */ '../views/Correction.vue'),
+    meta: {
+      title: 'Correction - Savaal'
+    }
   },
   {
     path: '/results',
     name: 'Results Page',
-    component: () => import(/* webpackChunkName: "results" */ '../views/Results.vue')
+    component: () => import(/* webpackChunkName: "results" */ '../views/Results.vue'),
+    meta: {
+      title: 'Results - Savaal'
+    }
   },
   {
     path: '/about',

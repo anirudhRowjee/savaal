@@ -2,7 +2,7 @@
   <div>
     <b-container>
       <b-jumbotron
-        bg-variant='info'
+        bg-variant='white'
         header='Your Score'
         >
         <h1> {{ marks }} / {{ totalmarks }} </h1>
@@ -134,6 +134,9 @@ export default {
       alert("Invalid")
       this.$router.push('/')
     }
+  },
+  created() {
+    document.title = this.$route.meta.title;
   }
 
 }

@@ -224,6 +224,9 @@ export default {
   mounted() {
     // set marking scheme options from persistent state
     this.globalmarkingschemes = this.getMarkingSchemes.markingschemes
+  },
+  created(){
+    document.title = this.$route.meta.title;
   }
 }
 </script>
