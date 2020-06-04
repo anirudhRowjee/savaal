@@ -19,5 +19,3 @@
 * [ ] Tooltips
 * [ ] Prevent L-Arrow on question 1 and R-Arrow on last Quesiton (Test.vue)
 * [ ] Different Colors for "Answered and M4E" and "Not Answered and M4E"
-
-    TEST
