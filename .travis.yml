@@ -1,21 +1,31 @@
 language: node_js
-node_js: 
-  - "12"
-
+node_js:
+- '12'
 addons:
   apt:
     packages:
-      - nginx
+    - nginx
+  ssh_known_hosts: 
+  - 134.209.153.7
+  - savaal.xyz
+
 
 branches:
   only:
-    - master
+  - master
+before_install:
+- openssl aes-256-cbc -K $encrypted_0ddd2445e49f_key -iv $encrypted_0ddd2445e49f_iv
+  -in travis_rsa.enc -out travis_rsa -d
+- chmod 600 travis_rsa
+- mv travis_rsa ~/.ssh/id_rsa
 
-before_script:
-  - npm install -g @vue/cli
+install:
+  - npm install @vue/cli
 
 script:
   - npm install
   - npm run build
 
+after_success:
+  - bash ./deploy.sh
 
