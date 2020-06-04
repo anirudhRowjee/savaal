@@ -8,10 +8,91 @@
         bg-variant='success'
         >
         <b-card-group deck>
-          <b-card>
+          <b-card header='Step 1'>
             <strong>
-              1. Choose a Marking Scheme and Test Information, and Keep your Question Paper Ready
+              Keep your Question Paper Ready
             </strong>
+
+              <b-form-group
+                label='Select a Marking Scheme'
+                label-for='markingschemeselector'
+                >
+                <b-form-select @change='handleSelect' id='markingschemeselector' v-if='globalmarkingschemes' v-model='test.getMarkingScheme' >
+                  <b-form-select-option 
+                    v-for='ms in globalmarkingschemes'
+                    :key='ms.name'
+                    :value='ms.name'
+                    >
+                    {{ ms.name }}
+                  </b-form-select-option>
+                    <b-form-select-option value='custom' @select='changeReadonlyStatus(false)'
+                                          @click ='changeReadonlyStatus(false)' selected>
+                      Custom
+                    </b-form-select-option>
+                </b-form-select>
+              </b-form-group>
+
+              <b-form-group
+                label='Marks for Correct Answer'
+                label-for='correctmarks_input'
+                v-if='msSelected'
+                >
+                <b-input-group id='correctmarks_input' prepend='Add' append='Marks'>
+                  <b-form-input 
+                    required 
+                    placeholder='Marks for Correct Answer ( Eg 1, 4 )' 
+                    type='number'
+                    min=0
+                    :readonly='msEditable'
+                    v-model=test.markingScheme.correct
+                    />
+                </b-input-group>
+              </b-form-group>
+              <b-form-group label='Marks Deducted for incorrect answer'
+                            label-for='incorrectmarks_input'
+                            v-if='msSelected'
+                            >
+                <b-input-group d='incorrectmarks_input' prepend='Remove' append='Marks'>
+                  <b-form-input 
+                    required 
+                    placeholder='Marks for incorrect Answer ( Eg 1, 4 )' 
+                    type='number'
+                    min=0
+                    :readonly='msEditable'
+                    v-model='test.markingScheme.incorrect'
+                    />
+                </b-input-group>
+              </b-form-group>
+
+              <b-form-group label='Number of Quesitons to Ace' label-for='nq-input'>
+                <b-form-input 
+                  required 
+                  type='number' 
+                  min=0
+                  id='nq-input' 
+                  placeholder="How Many Questions?" 
+                  v-model='test.n_questions'
+                  />
+              </b-form-group>
+              <b-form-group label='How Many Minutes for the Test?' label-for='tq-input'>
+                <b-form-input 
+                  required  
+                  type='number' 
+                  id='tq-input' 
+                  placeholder="How Many Minutes?" 
+                  min=0
+                  v-model='test.time'
+                  />
+              </b-form-group>
+              <b-form-group 
+                :label='getMarkingSchemeLabel()'
+                label-for='start-cta-button'
+                v-if='test.markingScheme.correct && test.markingScheme.incorrect'
+                >
+                <b-btn id='start-cta-button' @click='submitTest' variant='success'> Let's Go Practice! </b-btn>
+              </b-form-group>
+
+
           </b-card>
           <b-card>
             <strong>
@@ -35,18 +116,16 @@
                 label='Select a Marking Scheme'
                 label-for='markingschemeselector'
                 >
-                <b-form-select id='markingschemeselector' v-if='globalmarkingschemes' v-model='test.getMarkingScheme' >
+                <b-form-select @change='handleSelect' id='markingschemeselector' v-if='globalmarkingschemes' v-model='test.getMarkingScheme' >
                   <b-form-select-option 
                     v-for='ms in globalmarkingschemes'
                     :key='ms.name'
                     :value='ms.name'
-                    @select="handleSelect(ms)"
-                    @click.native="handleSelect(ms)"
                     >
                     {{ ms.name }}
                   </b-form-select-option>
                     <b-form-select-option value='custom' @select='changeReadonlyStatus(false)'
-                                          @click.native ='changeReadonlyStatus(false)' selected>
+                                          @click ='changeReadonlyStatus(false)' selected>
                       Custom
                     </b-form-select-option>
                 </b-form-select>
@@ -116,7 +195,7 @@
                 label-for='start-cta-button'
                 v-if='test.markingScheme.correct && test.markingScheme.incorrect'
                 >
-                <b-btn id='start-cta-button' @click.native='submitTest' variant='success'> Let's Go Practice! </b-btn>
+                <b-btn id='start-cta-button' @click='submitTest' variant='success'> Let's Go Practice! </b-btn>
               </b-form-group>
               </b-form>
           </b-card-body>
@@ -181,12 +260,26 @@ export default {
       -${this.test.markingScheme.incorrect})`
     },
 
-    handleSelect(markingScheme){
-      console.log(markingScheme)
-      this.msSelected = true
-      this.test.markingScheme.correct = markingScheme.correct
-      this.test.markingScheme.incorrect = markingScheme.incorrect
-      this.changeReadonlyStatus(true)
+    getMarkingSchemeByLabel(label){
+      return this.globalmarkingschemes.filter(ms => ms.name == label)[0]
+    },
+
+    handleSelect(id){
+      console.log(id)
+      if (id == 'custom' ){
+        // custom - allow editable field
+        this.msSelected = true
+        this.test.markingScheme.correct = 0
+        this.test.markingScheme.incorrect = 0
+        this.changeReadonlyStatus(false)
+      } else {
+        var localMSCopy = this.getMarkingSchemeByLabel(id)
+        // console.log(localMSCopy)
+        this.msSelected = true
+        this.test.markingScheme.correct = localMSCopy.correct
+        this.test.markingScheme.incorrect = localMSCopy.incorrect
+        this.changeReadonlyStatus(true)
+      }
     },
 
     throwToEval(){
