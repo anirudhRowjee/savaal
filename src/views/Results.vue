@@ -24,8 +24,10 @@
         >
         Try One More!
       </b-btn>
-        <br>
     </b-container>
+        <br>
+        <br>
+        <br>
   </div>
 </template>
 

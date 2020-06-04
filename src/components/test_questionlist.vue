@@ -20,7 +20,7 @@
 
       </b-card-text>
 
-        <b-btn @click='this.$emit("evaluate-test")' variant='outline-success'> Submit Test </b-btn>
+        <b-btn @click='emitEvaluateTest()' variant='outline-success'> Submit Test </b-btn>
 
       <br>
     </b-card>
@@ -59,10 +59,18 @@ export default {
 
     },
 
+    emitEvaluateTest() {
+      this.$emit('evaluate-test')
+    },
+
     getColorFromQuestion(question){
       if ( question.eval ){
         // overrides everything else
-        return "warning"
+        if ( question.selectedOption == 'X'){
+          return "danger"
+        } else {
+          return "warning"
+        }
       }
       else {
         // if answered, return success, else return dark

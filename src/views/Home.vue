@@ -1,17 +1,23 @@
 <template>
-  <div>
+  <div class='parent'>
 
     <b-container>
       <b-jumbotron 
-        header='Savaal (Question)'
+        header='Savaal'
         lead='Computer Based Test at Home In 3 Easy Steps'
-        bg-variant='info'
+        bg-variant='white'
         >
         <b-card-group deck>
-          <b-card header='Step 1'>
+          <b-card 
+            border-variant="primary"
+            header-text-variant='black'
+            header-bg-variant='primary'
+            header='Step 1'>
             <strong>
-              Keep your Question Paper Ready
+              Keep your Question Paper and Answer Key Ready
             </strong>
+            <br>
+            <hr>
 
               <b-form-group
                 label='Select a Marking Scheme'
@@ -64,6 +70,19 @@
                 </b-input-group>
               </b-form-group>
 
+          </b-card>
+          <b-card
+            header='Step 2'
+            v-if='msSelected'
+            header-text-variant='black'
+            border-variant="primary"
+            header-bg-variant='primary'
+            >
+            <strong>
+              Add Some more Details about the test
+            </strong>
+            <br>
+            <hr>
               <b-form-group label='Number of Quesitons to Ace' label-for='nq-input'>
                 <b-form-input 
                   required 
@@ -84,6 +103,21 @@
                   v-model='test.time'
                   />
               </b-form-group>
+          </b-card>
+
+          <b-card
+            header='Step 3'
+            header-text-variant='black'
+            v-if='test.time && test.n_questions'
+            border-variant="primary"
+            header-bg-variant='primary'
+            >
+            <strong>
+              You can now Write the test.  All the best!
+            </strong>
+            <br>
+            <hr>
+
               <b-form-group 
                 :label='getMarkingSchemeLabel()'
                 label-for='start-cta-button'
@@ -93,117 +127,10 @@
               </b-form-group>
 
 
-          </b-card>
-          <b-card>
-            <strong>
-              2. Write the test!
-            </strong>
-          </b-card>
-          <b-card>
-            <strong>
-              3. Enter all the Answers per the Answer Key, and Sit Back - we will tell you your score
-              immediately!
-            </strong>
           </b-card>
         </b-card-group>
       </b-jumbotron>
-      <b-row>
-        <b-col sm text-center>
-          <b-card-body>
-            <!--Form Configurator for Marking Scheme -->
-            <b-form>
-              <b-form-group
-                label='Select a Marking Scheme'
-                label-for='markingschemeselector'
-                >
-                <b-form-select @change='handleSelect' id='markingschemeselector' v-if='globalmarkingschemes' v-model='test.getMarkingScheme' >
-                  <b-form-select-option 
-                    v-for='ms in globalmarkingschemes'
-                    :key='ms.name'
-                    :value='ms.name'
-                    >
-                    {{ ms.name }}
-                  </b-form-select-option>
-                    <b-form-select-option value='custom' @select='changeReadonlyStatus(false)'
-                                          @click ='changeReadonlyStatus(false)' selected>
-                      Custom
-                    </b-form-select-option>
-                </b-form-select>
-              </b-form-group>
-
-              <b-form-group
-                label='Marks for Correct Answer'
-                label-for='correctmarks_input'
-                v-if='msSelected'
-                >
-                <b-input-group id='correctmarks_input' prepend='Add' append='Marks'>
-                  <b-form-input 
-                    required 
-                    placeholder='Marks for Correct Answer ( Eg 1, 4 )' 
-                    type='number'
-                    min=0
-                    :readonly='msEditable'
-                    v-model=test.markingScheme.correct
-                    />
-                </b-input-group>
-              </b-form-group>
-              <b-form-group label='Marks Deducted for incorrect answer'
-                            label-for='incorrectmarks_input'
-                            v-if='msSelected'
-                            >
-                <b-input-group d='incorrectmarks_input' prepend='Remove' append='Marks'>
-                  <b-form-input 
-                    required 
-                    placeholder='Marks for incorrect Answer ( Eg 1, 4 )' 
-                    type='number'
-                    min=0
-                    :readonly='msEditable'
-                    v-model='test.markingScheme.incorrect'
-                    />
-                </b-input-group>
-              </b-form-group>
-              </b-form>
-
-          </b-card-body>
-        </b-col>
-        <b-col sm>
-          <!--Choose Other Details -->
-          <b-card-body>
-            <b-form class='b-card-body'>
-              <b-form-group label='Number of Quesitons to Ace' label-for='nq-input'>
-                <b-form-input 
-                  required 
-                  type='number' 
-                  min=0
-                  id='nq-input' 
-                  placeholder="How Many Questions?" 
-                  v-model='test.n_questions'
-                  />
-              </b-form-group>
-              <b-form-group label='How Many Minutes for the Test?' label-for='tq-input'>
-                <b-form-input 
-                  required  
-                  type='number' 
-                  id='tq-input' 
-                  placeholder="How Many Minutes?" 
-                  min=0
-                  v-model='test.time'
-                  />
-              </b-form-group>
-              <b-form-group 
-                :label='getMarkingSchemeLabel()'
-                label-for='start-cta-button'
-                v-if='test.markingScheme.correct && test.markingScheme.incorrect'
-                >
-                <b-btn id='start-cta-button' @click='submitTest' variant='success'> Let's Go Practice! </b-btn>
-              </b-form-group>
-              </b-form>
-          </b-card-body>
-        </b-col>
-        <br>
-      </b-row>
     </b-container>
-
   </div>
 </template>
 
@@ -312,5 +239,9 @@ b-col {
 
 #start-cta-button {
   width: 100%;
+}
+.footer {
+  flex-shrink: 0;
+  text-align: center;
 }
 </style>

@@ -18,10 +18,10 @@
 
 
         <b-btn-group >
-          <b-btn @click='updateQuestion("p")' variant='outline-primary'> <font-awesome-icon icon='arrow-left' />  </b-btn>
+          <b-btn v-show='showLArrow' @click='updateQuestion("p")' variant='outline-primary'> <font-awesome-icon icon='arrow-left' />  </b-btn>
           <b-btn v-if='isQuestionChecked()' @click='clearChoices()' variant='outline-primary'> Clear </b-btn>
           <b-btn @click='markForEvaluation()' :variant='evalButtonStatus()'> Mark For Evaluation </b-btn>
-          <b-btn @click='updateQuestion("f")' variant='outline-primary'> <font-awesome-icon icon='arrow-right' /> </b-btn>
+          <b-btn v-show='showRArrow' @click='updateQuestion("f")' variant='outline-primary'> <font-awesome-icon icon='arrow-right' /> </b-btn>
         </b-btn-group>
 
       <br>
@@ -35,16 +35,19 @@ export default {
 
   props: [
     'currentQuestion',
+    'totalQuestionsCount',
+    'showLArrow',
+    'showRArrow'
   ],
 
   data: function () {
     return {
       options: ['A', 'B', 'C', 'D'],
-
     }
   },
 
   methods: {
+
 
     isQuestionChecked(){
       return this.currentQuestion.selectedOption != 'X'

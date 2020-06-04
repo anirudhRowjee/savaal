@@ -134,8 +134,13 @@ export default {
 
   mounted() {
     this.questions = this.getQuestions
-    console.log(this.questions)
-    this.generated_codex = this.getCodexFromQuestions()
+    if ( this.questions && this.getQuestionsCount){
+      console.log(this.questions)
+      this.generated_codex = this.getCodexFromQuestions()
+    } else {
+      alert("Please Create A Test First!")
+      this.$router.push('/')
+    }
   }
 }
 </script>

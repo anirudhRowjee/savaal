@@ -53,6 +53,7 @@ export default {
     },
     handleExpire() {
       alert("Complete")
+      this.$emit('time-expire')
     },
     emitEvaluateTest() {
       this.$emit('evaluate-test')

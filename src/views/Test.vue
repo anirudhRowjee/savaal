@@ -5,7 +5,7 @@
       <test_topbar 
         :startFlag.sync='startTest'
         :time='getTestTime'
-        @complete='handleEvaluate'
+        @time-expire='handleEvaluate'
         @evaluate-test='handleEvaluate' 
         @exit-test='handleExit'
         />
@@ -19,6 +19,9 @@
           :currentQuestion.sync='currentQuestion'
           @change-question='setQuestion'
           @update-question='handleUpdateQuestion'
+          :totalQuestionsCount='getQuestionsCount'
+          :showLArrow='showLArrow'
+          :showRArrow='showRArrow'
           />
       </b-col>
 
@@ -72,7 +75,8 @@ export default {
         eval: ''
       },
       instartup: false,
-
+      showRArrow: false,
+      showLArrow: false,
     }
   },
 
@@ -111,6 +115,33 @@ export default {
       console.log("saving ", qno)
     },
 
+
+    checkQuestionArrowStatus() {
+      if ( Number(this.currentQuestion.id) == Number(this.countQuestions) ){
+        // this is last question
+        // ddisable right arrow and show left
+        this.showRArrow = false
+        this.showLArrow = true
+      } else if ( Number(this.currentQuestion.id) == 1 ){
+
+        if (  Number(this.currentQuestion.id) == Number(this.countQuestions) ){
+          // only one question
+          // TODO fix bug - only left arrow still somehow showing up
+          this.showLArrow = false
+          this.showRArrow = false
+        } else {
+          // this is first question
+          // ddisable left arrow and show left
+          this.showLArrow = false
+          this.showRArrow = true
+        }
+      } else {
+        // any question that's not any of the first, last or only one
+        this.showLArrow = true
+        this.showRArrow = true
+      }
+    },
+
     setQuestion(qno){
       // set to question 
 
@@ -120,6 +151,7 @@ export default {
         var newQuestion = this.getQuestionByNumber(qno)
         console.log(newQuestion)
         this.currentQuestion = newQuestion
+        this.checkQuestionArrowStatus()
         return newQuestion
       } else {
         this.saveQuestion(this.currentQuestion.id)
@@ -127,6 +159,7 @@ export default {
         var OthernewQuestion = this.getQuestionByNumber(qno)
         console.log(OthernewQuestion)
         this.currentQuestion = OthernewQuestion
+        this.checkQuestionArrowStatus()
         return OthernewQuestion
       }
     },
@@ -183,7 +216,7 @@ export default {
     // first check if the page has been accessed only after making the test (route guard)
     this.countQuestions = this.getQuestionsCount
     this.time = this.getTestTime
-    if ( this.time == null || this.countQuestions == null ){
+    if ( !this.time || !this.countQuestions ){
       alert("Please Create a Test First")
       this.$router.push('/')
     } else {
@@ -211,7 +244,6 @@ b-col {
 }
 
 #testcontainer{
-  background-color: white;
 }
 
 </style>

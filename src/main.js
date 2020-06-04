@@ -11,13 +11,14 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faArrowRight, faArrowLeft, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
   faCoffee,
   faArrowRight,
   faArrowLeft,
+  faHeart,
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
