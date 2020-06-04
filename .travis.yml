@@ -1,0 +1,21 @@
+language: node_js
+node_js: 
+  - "12"
+
+addons:
+  apt:
+    packages:
+      - nginx
+
+branches:
+  only:
+    - master
+
+before_script:
+  - npm install -g @vue/cli
+
+script:
+  - npm install
+  - npm run build
+
+
