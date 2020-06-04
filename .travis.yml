@@ -26,6 +26,9 @@ script:
   - npm install
   - npm run build
 
-after_success:
-  - bash ./install.sh
-
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: bash install.sh
+  on:
+    branch: master
