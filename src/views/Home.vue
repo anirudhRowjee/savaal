@@ -5,7 +5,7 @@
       <b-jumbotron 
         header='Savaal (Question)'
         lead='Computer Based Test at Home In 3 Easy Steps'
-        bg-variant='success'
+        bg-variant='info'
         >
         <b-card-group deck>
           <b-card header='Step 1'>
