@@ -26,12 +26,13 @@
 }
 
 .silentLink:link {
-  text-decoration: none;
+  text-decoration: underline;
   color: black;
 }
 
 .silentLink:visited {
-  text-decoration: none;
+  text-decoration: underline;
+  color: blue;
 }
 
 
