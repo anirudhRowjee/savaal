@@ -12,18 +12,18 @@
           :key='question.id'
           class='btn grid-item question_jumpbutton'
           :variant='getColorFromQuestion(question)'
-          text-variant='dark'
+          text-variant='white'
           :pill='getActiveStatus(question)'
           size="sm"
           @click='changeToQuestion(question.id)'
-          color='black'
+          color='white'
           > {{ question.id }}</b-btn>
           <br>
 
       </b-card-text>
 
 
-      <b-btn class='eval_cta' @click='emitEvaluateTest()' variant='outline-success'> Submit Test </b-btn>
+      <b-btn class='eval_cta' @click='emitEvaluateTest()' variant='success'> Submit Test </b-btn>
       <br>
     </b-card>
   </div>

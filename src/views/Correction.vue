@@ -4,8 +4,52 @@
       <b-jumbotron 
         bg-variant='white' 
         header='Answers'
-        lead='Please Provide the answers as per the Answer Key!'
         >
+        <b-card
+          header='Please Provide the answers as per the Answer Key!'
+          header-bg-variant='primary'
+          header-text-variant='white'
+          class='shadow-lg'
+          >
+          <b-card-text class='list-staggered' >
+            <!-- Updated UI for answer selection  -->
+            <b-row
+              :key='q.id' 
+              v-for='q in qlist'
+              :id=' "choice_parent_" + q.id '
+              :label='q.id'
+              :label-for='"choice_" + q.id'
+              class='grid-item ansbox'
+              >
+              <b-form-radio-group 
+                buttons
+                button-variant='outline-primary'
+                size='md'
+                v-model='qlist[q.id - 1].selectedOption'
+                :id='"choice_"+q.id'
+                :options='options'
+                required
+                @input='allAnswersMarked()'
+                >
+                <template v-slot:first>
+                  <b-button
+                    variant='primary'
+                    > 
+                    {{ q.id }} 
+                  </b-button>
+                </template>
+              </b-form-radio-group>
+            </b-row>
+          </b-card-text>
+          <b-btn variant='success' @click='handleCodexSubmit'  block v-if="allAnswersMarkedFlag"> Correct My Test </b-btn>
+        </b-card>
+      </b-jumbotron>
+    </b-container>
+  </div>
+</template>
+
+<script>
+/*
         <b-form-group
           label='Please Enter the Codex'
           label-for='codex-input'
@@ -27,6 +71,8 @@
               </b-input-group-append>
           </b-input-group>
         </b-form-group>
+
+
 
       <b-card-group deck>
         <b-card 
@@ -58,15 +104,7 @@
           <code>1-a 2-b 3-c 4-d 5-a 6-b</code>.
         </b-card>
       </b-card-group>
-
-
-      </b-jumbotron>
-    </b-container>
-  </div>
-</template>
-
-<script>
-
+*/
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
@@ -76,6 +114,9 @@ export default {
       submitted_codex: '',
       generated_codex: '',
       score: '',
+      qlist: '',
+      options: ['A', 'B', 'C', 'D'],
+      allAnswersMarkedFlag: false,
     }
   },
   methods: {
@@ -85,6 +126,12 @@ export default {
     setGeneratedAnswerString: 'setGeneratedAnswerString',
     }),
 
+    allAnswersMarked(){
+      this.allAnswersMarkedFlag =  this.qlist.every(record => {
+        return !(record.selectedOption == 'X')
+      })
+    },
+
     sanitizeCodexString(codex){
       var newCodex = codex
         .trim()
@@ -92,6 +139,17 @@ export default {
         .map( x => x.toLowerCase().trim())
         .join(" ")
       return newCodex
+    },
+
+    generaterAnswerList(length){
+      var finalist = []
+      for ( var i = 1; i < length+1; i++ ){
+        finalist.push({
+          'id': i,
+          'selectedOption': "X",
+        })
+      }
+      return finalist
     },
 
     validateCodex(codex){
@@ -120,19 +178,22 @@ export default {
       return codexList
     },
 
+    getCodexFromList(list){
+      var codexList = list.map(q => {
+        return `${q.id}-${q.selectedOption.toLowerCase()}`
+      }).join(" ")
+      console.log("Codex From List")
+      console.log(codexList)
+      return codexList
+    },
+
     handleCodexSubmit(){
       console.log("Sanitizing Codex")
-      this.submitted_codex = this.sanitizeCodexString(this.submitted_codex)
-      console.log("Validating codex...")
-      var validcodex = this.validateCodex(this.submitted_codex)
-      if ( validcodex ){
-        console.log("generated ", this.generated_codex)
-        this.setSubmittedAnswerString(this.submitted_codex)
-        this.setGeneratedAnswerString(this.generated_codex)
-        this.$router.push('/results')
-      } else {
-        alert("Invalid Codex! Please Check Format and Question Numbers/Options")
-      }
+      this.submitted_codex = this.getCodexFromList(this.qlist)
+      console.log("generated ", this.generated_codex)
+      this.setSubmittedAnswerString(this.submitted_codex)
+      this.setGeneratedAnswerString(this.generated_codex)
+      this.$router.push('/results')
     }
 
   },
@@ -148,6 +209,8 @@ export default {
     if ( this.questions && this.getQuestionsCount){
       console.log(this.questions)
       this.generated_codex = this.getCodexFromQuestions()
+      this.qlist = this.generaterAnswerList(Number(this.getQuestionsCount))
+      console.log(this.qlist)
     } else {
       alert("Please Create A Test First!")
       this.$router.push('/')
@@ -160,5 +223,21 @@ export default {
 </script>
 
 <style>
+
+.grid-container{
+    display: grid;
+    grid-gap: 2vw;
+}
+
+.list-staggered{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(29vh, 5fr));
+  grid-gap: 1vh;
+}
+
+.ansbox{
+  padding: 2vh;
+  width: fixed;
+}
 
 </style>
