@@ -9,10 +9,11 @@
         >
         <b-card-group deck>
           <b-card 
-            border-variant="primary"
-            header-text-variant='black'
+            header-text-variant='white'
             header-bg-variant='primary'
-            header='Step 1'>
+            header='Step 1'
+            class='shadow-lg'
+            >
             <strong>
               Keep your Question Paper and Answer Key Ready
             </strong>
@@ -74,9 +75,9 @@
           <b-card
             header='Step 2'
             v-if='msSelected'
-            header-text-variant='black'
-            border-variant="primary"
+            header-text-variant='white'
             header-bg-variant='primary'
+            class='shadow-lg'
             >
             <strong>
               Add Some more Details about the test
@@ -107,10 +108,10 @@
 
           <b-card
             header='Step 3'
-            header-text-variant='black'
+            header-text-variant='white'
             v-if='test.time && test.n_questions'
-            border-variant="primary"
             header-bg-variant='primary'
+            class='shadow-lg'
             >
             <strong>
               You can now Write the test.  All the best!

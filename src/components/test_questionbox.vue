@@ -1,6 +1,6 @@
 <template>
   <div class="questionbox_container">
-    <b-card title='Question' >
+    <b-card title='Question' class='shadow-lg' >
       {{ currentQuestion.id }}
       <b-card-text>
         Choose The Correct Option

@@ -20,6 +20,8 @@ export default new Vuex.Store({
       timetaken: null,
       totalmarks: null,
       studentmarks: null,
+
+      log: [],
     },
 
     global_markingSchemes: markingschemes

@@ -1,6 +1,8 @@
 <template>
   <div class="questionlist_container">
-    <b-card :title=' "Question Overview - " + currentQuestion.id' >
+    <b-card :title=' "Question Overview - " + currentQuestion.id'
+      class='shadow-lg'
+      >
 
       <b-card-text v-if='questions' class='grid-container' >
           
@@ -20,7 +22,7 @@
 
       </b-card-text>
 
-        <b-btn @click='emitEvaluateTest()' variant='outline-success'> Submit Test </b-btn>
+        <b-btn class='eval_cta' @click='emitEvaluateTest()' variant='outline-success'> Submit Test </b-btn>
 
       <br>
     </b-card>
@@ -118,6 +120,10 @@ export default {
 .question_overview{
   padding: 3%;
   font-size: 1vw;
+}
+
+.eval_cta{
+  width: 100;
 }
 
 </style>
