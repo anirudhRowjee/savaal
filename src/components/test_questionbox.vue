@@ -1,6 +1,6 @@
 <template>
   <div class="questionbox_container">
-    <b-card title='Question' >
+    <b-card title='Question' class='shadow-lg' >
       {{ currentQuestion.id }}
       <b-card-text>
         Choose The Correct Option
@@ -9,7 +9,7 @@
       <b-card-text>
         <b-form-radio-group 
           buttons
-          button-variant='outline-danger'
+          button-variant='outline-primary'
           size='lg'
           v-model='currentQuestion.selectedOption'
           :options='options'

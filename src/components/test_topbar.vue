@@ -1,25 +1,19 @@
 <template>
   <div >
-    <b-card no-body  id="topbar_container">
+    <b-card no-body class='shadow-lg' id="topbar_container">
       <b-row>
 
-        <b-col cols='3' id='topbar_exit'  class='my-auto'>
-            <b-btn variant='outline-danger' @click='emitExitFromTest'> Exit </b-btn>
-        </b-col>
 
-        <b-col cols='6' id='timerbox' class='my-auto'>
-          <b-card>
+        <b-col cols='12' id='timerbox' class='my-auto'>
+          <b-card-body>
             <vue-countdown 
               @time-expire='handleExpire'
               :seconds='time'
               :start='startFlag'
               />
-          </b-card>
+          </b-card-body>
         </b-col>
 
-        <b-col cols='3'  id='topbar_submit'   class='my-auto'>
-            <b-btn variant='outline-success' @click='emitEvaluateTest'> Done </b-btn>
-        </b-col>
 
       </b-row>
     </b-card>
@@ -28,6 +22,17 @@
 </template>
 
 <script>
+
+/*
+
+        <b-col cols='3' id='topbar_exit'  class='my-auto'>
+            <b-btn variant='outline-danger' @click='emitExitFromTest'> Exit </b-btn>
+        </b-col>
+        <b-col cols='3'  id='topbar_submit'   class='my-auto'>
+            <b-btn variant='outline-success' @click='emitEvaluateTest'> Done </b-btn>
+        </b-col>
+
+*/
 
 import VueCountdown from '@dmaksimovic/vue-countdown'
 
