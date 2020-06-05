@@ -9,7 +9,7 @@
       <b-card-text>
         <b-form-radio-group 
           buttons
-          button-variant='outline-danger'
+          button-variant='outline-primary'
           size='lg'
           v-model='currentQuestion.selectedOption'
           :options='options'

@@ -3,31 +3,41 @@
     <b-container>
       <b-jumbotron
         bg-variant='white'
-        header='Your Score'
         >
+        <b-card
+          class='shadow-lg'
+          header='Your Score'
+          header-bg-variant="primary"
+          header-text-variant='white'
+          >
         <h1> {{ marks }} / {{ totalmarks }} </h1>
-      </b-jumbotron>
+        </b-card>
+        <br>
       <b-card
           v-if='corrected'
-          title="REVIEW"
+          header="REVIEW"
+          class='shadow-lg'
+          header-bg-variant="primary"
+          header-text-variant="white"
         >
         <!-- What you got wrong -->
         <b-table 
           :items='corrected'
           hover
+          responsive="true"
+          sticky-header="true"
           />
-      </b-card>
-      <br>
       <b-btn
-        variant='info'
+        variant='success'
         @click='handleRedirectToHome'
+        class='again_cta'
         >
         Try One More!
       </b-btn>
+
+      </b-card>
+      </b-jumbotron>
     </b-container>
-        <br>
-        <br>
-        <br>
   </div>
 </template>
 
@@ -80,7 +90,7 @@ export default {
             this.corrected.push({
               'Question #': flag+1,
               'Correct Answer': correct_ans.toUpperCase(),
-              'You Answered': "NA",
+              'Your Answer': "NA",
             })
         } else {
           if ( submitted_ans == correct_ans ){
@@ -88,7 +98,7 @@ export default {
             this.corrected.push({
               'Question #': flag+1,
               'Correct Answer': correct_ans.toUpperCase(),
-              'You Answered': submitted_ans.toUpperCase(),
+              'Your Answer': submitted_ans.toUpperCase(),
               '_rowVariant': 'success'
             })
           } else {
@@ -96,7 +106,7 @@ export default {
             this.corrected.push({
               'Question #': flag+1,
               'Correct Answer': correct_ans.toUpperCase(),
-              'You Answered': submitted_ans.toUpperCase(),
+              'Your Answer': submitted_ans.toUpperCase(),
               '_rowVariant': 'danger'
             })
           }
@@ -143,5 +153,8 @@ export default {
 </script>
 
 <style>
+.again_cta{
+  width: 100%;
+}
 
 </style>

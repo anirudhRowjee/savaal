@@ -22,8 +22,8 @@
 
       </b-card-text>
 
-        <b-btn class='eval_cta' @click='emitEvaluateTest()' variant='outline-success'> Submit Test </b-btn>
 
+      <b-btn class='eval_cta' @click='emitEvaluateTest()' variant='outline-success'> Submit Test </b-btn>
       <br>
     </b-card>
   </div>
@@ -123,7 +123,7 @@ export default {
 }
 
 .eval_cta{
-  width: 100;
+  width: 100%;
 }
 
 </style>

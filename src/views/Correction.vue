@@ -3,7 +3,7 @@
     <b-container>
       <b-jumbotron 
         bg-variant='white' 
-        header='Correction'
+        header='Answers'
         lead='Please Provide the answers as per the Answer Key!'
         >
         <b-form-group
@@ -14,6 +14,7 @@
             <b-form-input
               placeholder='1-a 2-b 3-c 4-d 5-a 6-b .......'
               v-model='submitted_codex'
+              class='shadow-lg'
               />
               <b-input-group-append v-if='submitted_codex'>
 
@@ -26,13 +27,21 @@
               </b-input-group-append>
           </b-input-group>
         </b-form-group>
-      </b-jumbotron>
+
       <b-card-group deck>
-        <b-card title='What is Codex?'>
+        <b-card 
+          header='What is Codex?' 
+          header-bg-variant='primary'
+          header-text-variant='white'
+
+          class='shadow-lg'>
           Codex is the list of CORRECT answers to your questions in the test. Once you give us
           the codex, then we can evaluate your questions with your Marking Scheme of choice.
         </b-card>
-        <b-card title='How do I make it?'>
+        <b-card header='How do I make it?'
+          header-bg-variant='primary'
+          header-text-variant='white'
+                class='shadow-lg'>
           Take the Question Number and the Letter of the Correct Option and separate them with a
           dash. Then, for each question, separate it by a space.
 
@@ -49,6 +58,9 @@
           <code>1-a 2-b 3-c 4-d 5-a 6-b</code>.
         </b-card>
       </b-card-group>
+
+
+      </b-jumbotron>
     </b-container>
   </div>
 </template>
