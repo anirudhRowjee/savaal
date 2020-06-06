@@ -5,6 +5,7 @@
         bg-variant='white' 
         header='Answers'
         >
+        <br>
         <b-card
           header='Please Provide the answers as per the Answer Key!'
           header-bg-variant='primary'
@@ -41,7 +42,10 @@
               </b-form-radio-group>
             </b-row>
           </b-card-text>
-          <b-btn variant='success' @click='handleCodexSubmit'  block v-if="allAnswersMarkedFlag"> Correct My Test </b-btn>
+          <b-btn variant='success' @click='handleCodexSubmit'  block v-if="allAnswersMarkedFlag"> 
+            Correct My Test <font-awesome-icon icon='check' />
+
+          </b-btn>
         </b-card>
       </b-jumbotron>
     </b-container>
@@ -211,6 +215,8 @@ export default {
       this.generated_codex = this.getCodexFromQuestions()
       this.qlist = this.generaterAnswerList(Number(this.getQuestionsCount))
       console.log(this.qlist)
+      window.scrollTo(0, 0)
+      this.$ua.trackView('/correction')
     } else {
       alert("Please Create A Test First!")
       this.$router.push('/')

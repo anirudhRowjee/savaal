@@ -4,9 +4,12 @@
     <b-container>
       <b-jumbotron 
         header='Savaal'
-        lead='Computer Based Test at Home In 3 Easy Steps'
         bg-variant='white'
         >
+        <template slot:lead>
+          <h3> Free Computer Based Test Experience at Home In <b><i> 3 easy steps </i></b></h3>
+          <br>
+        </template>
         <b-card-group deck>
           <b-card 
             header-text-variant='white'
@@ -18,6 +21,7 @@
               Keep your Question Paper and Answer Key Ready
             </strong>
             <br>
+            <font-awesome-icon icon='book' />
             <hr>
 
               <b-form-group
@@ -83,6 +87,7 @@
               Add Some more Details about the test
             </strong>
             <br>
+            <font-awesome-icon icon='pencil-alt' />
             <hr>
               <b-form-group label='Number of Quesitons to Ace' label-for='nq-input'>
                 <b-form-input 
@@ -117,14 +122,16 @@
               You can now Write the test.  All the best!
             </strong>
             <br>
+            <font-awesome-icon icon='trophy' />
             <hr>
 
               <b-form-group 
                 :label='getMarkingSchemeLabel()'
                 label-for='start-cta-button'
-                v-if='test.markingScheme.correct && test.markingScheme.incorrect'
+                v-if='test.markingScheme.correct >= 0 && test.markingScheme.incorrect >= 0'
                 >
-                <b-btn id='start-cta-button' @click='submitTest' variant='success'> Let's Go Practice! </b-btn>
+                <b-btn id='start-cta-button' @click='submitTest' variant='success'> Let's Go
+                  Practice <font-awesome-icon icon='arrow-right' /> </b-btn>
               </b-form-group>
 
 
@@ -225,6 +232,8 @@ export default {
   mounted() {
     // set marking scheme options from persistent state
     this.globalmarkingschemes = this.getMarkingSchemes.markingschemes
+    window.scrollTo(0, 0)
+    this.$ua.trackView('/')
   },
   created(){
     document.title = this.$route.meta.title;

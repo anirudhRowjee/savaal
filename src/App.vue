@@ -3,9 +3,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <router-view class='rv' />
     <div class='footer'>
-      <a class='silentLink' href='https://savaal.xyz'> Savaal </a> - Made with
-      <font-awesome-icon icon='heart'></font-awesome-icon> by 
-      <a class='silentLink' href='https://github.com/anirudhRowjee'> Anirudh Rowjee</a>, 2020
+      <a class='silentLink' href='https://savaal.xyz'> Savaal </a> - Made by
+      <a class='silentLink' href='https://github.com/anirudhRowjee'> Anirudh Rowjee</a>
     </div>
   </div>
 </template>

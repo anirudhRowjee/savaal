@@ -9,6 +9,7 @@
               v-model='currentTime'
               @changed='handleTimeChange'
             >
+            <font-awesome-icon icon='clock' />
             <vue-countdown 
               @time-expire='handleExpire'
               :seconds.sync='time'

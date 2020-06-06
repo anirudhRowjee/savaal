@@ -15,7 +15,7 @@
     <br> 
     <b-row fluid class='question_row'>
 
-      <b-col sm   id='questionbox_parent'>
+      <b-col sm id='questionbox_parent'>
         <test_questionbox
           :currentQuestion.sync='currentQuestion'
           @change-question='setQuestion'
@@ -253,6 +253,8 @@ export default {
       this.setQuestion(1);
       this.instartup = false;
       this.setTotalMarks()
+      window,scrollTo(0, 0)
+      this.$ua.trackView('/test')
     }
   },
 

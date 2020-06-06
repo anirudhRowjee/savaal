@@ -3,7 +3,9 @@
     <b-container>
       <b-jumbotron
         bg-variant='white'
+        header='Results'
         >
+        <br>
         <b-card
           class='shadow-lg'
           header='Your Score'
@@ -52,7 +54,7 @@
         @click='handleRedirectToHome'
         class='again_cta'
         >
-        Try One More!
+        Try One More <font-awesome-icon icon='arrow-right' />
       </b-btn>
 
       </b-card>
@@ -320,9 +322,11 @@ export default {
       this.evaluate(this.sub_al, this.gen_al)
       this.accuracy_percentage = this.accuracyPercentage
       this.avg_time_per_question = this.avgTimePerQuestion
+      window.scrollTo(0, 0)
+      this.$ua.trackView('/results')
     } else {
       // invalid landing, redirect
-      alert("Invalid")
+      alert("Please Create a Test First!")
       this.$router.push('/')
     }
   },

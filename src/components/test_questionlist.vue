@@ -23,9 +23,11 @@
       </b-card-text>
 
 
-      <b-btn class='eval_cta' @click='emitEvaluateTest()' variant='success'> Submit Test </b-btn>
+      <b-btn class='eval_cta' @click='emitEvaluateTest()' variant='success'> 
+        Finish Test <font-awesome-icon icon='paper-plane' />
+      </b-btn>
       <br>
-      <b-dropdown style='width:100%' text='legend' size='sm' variant='outline-dark'>
+      <b-dropdown style='width:100%' text='What Are The Colors?' size='sm' variant='outline-dark'>
         <b-dropdown-item variant='success'> Answered </b-dropdown-item>
         <b-dropdown-item variant='primary'> Not Answered </b-dropdown-item>
         <b-dropdown-item variant='warning'> Answered and Marked for Evaluation</b-dropdown-item>

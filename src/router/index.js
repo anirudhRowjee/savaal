@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueAnalytics from 'vue-ua'
 
 Vue.use(VueRouter)
 
@@ -51,5 +52,20 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+// google analytics stuff
+Vue.use(VueAnalytics, {
+  appName: 'savaal',
+  appVersion: '1.0',
+  trackingId: 'UA-168750451-1',
+
+  globalDimensions: [
+      { dimension: 1, value: 'FirstDimension' },
+      { dimension: 2, value: 'SecondDimension' }
+  ],
+
+
+})
+
 
 export default router

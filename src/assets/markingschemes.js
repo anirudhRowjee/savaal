@@ -13,7 +13,17 @@ export default {
     {
       "name": "KCET",
       "correct": 1,
+      "incorrect": 0
+    },
+    {
+      "name": "CLAT",
+      "correct": 1,
       "incorrect": 0.25
-    }
+    },
+    {
+      "name": "NATA Aptitude Section",
+      "correct": 1.5,
+      "incorrect": 0
+    },
   ]
 }
