@@ -5,11 +5,15 @@
 
 
         <b-col cols='12' id='timerbox' class='my-auto'>
-          <b-card-body>
+          <b-card-body
+              v-model='currentTime'
+              @changed='handleTimeChange'
+            >
             <vue-countdown 
               @time-expire='handleExpire'
-              :seconds='time'
+              :seconds.sync='time'
               :start='startFlag'
+              @time-changed='handleTimeChange'
               />
           </b-card-body>
         </b-col>
@@ -48,6 +52,7 @@ export default {
   data: function(){
     return {
       started: false,
+      currentTime: '',
 
     }
   },
@@ -59,6 +64,11 @@ export default {
     handleExpire() {
       alert("Complete")
       this.$emit('time-expire')
+    },
+    handleTimeChange(time){
+      this.$emit('time-changed', time)
+      console.log("Current Time is", time)
+      this.currentTime = time
     },
     emitEvaluateTest() {
       this.$emit('evaluate-test')

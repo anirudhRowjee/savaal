@@ -8,6 +8,7 @@
         @time-expire='handleEvaluate'
         @evaluate-test='handleEvaluate' 
         @exit-test='handleExit'
+        @time-changed='handleTimeChanged'
         />
     </div>
 
@@ -35,8 +36,6 @@
           @evaluate-test='handleEvaluate'
           />
       </b-col>
-
-
 
     </b-row>
 
@@ -77,6 +76,7 @@ export default {
       instartup: false,
       showRArrow: false,
       showLArrow: false,
+      currentTime: ''
     }
   },
 
@@ -85,6 +85,7 @@ export default {
     ...mapMutations({
       setQuestions: 'setQuestions',
       setTotalMarks: 'setTotalMarks',
+      Log: 'Log',
     }),
 
     getTestQuestions(limit) {
@@ -104,6 +105,10 @@ export default {
       return questions;
     },
 
+    handleTimeChanged(time){
+      this.currentTime = time
+    },
+
     getQuestionByNumber(number){
       var question = this.questions.filter( q => q.id == number)[0]
       console.log(question)
@@ -115,6 +120,23 @@ export default {
       console.log("saving ", qno)
     },
 
+    // logging for analysis
+    enterQuestion(q_no, time){
+      console.log("entering question ", q_no)
+      this.Log({
+        'id': q_no,
+        'event': 'enter',
+        'time': time
+      })
+    },
+    exitQuestion(q_no, time){
+      console.log("exiting question ", q_no)
+      this.Log({
+        'id': q_no,
+        'event': 'exit',
+        'time': time
+      })
+    },
 
     checkQuestionArrowStatus() {
       if ( Number(this.currentQuestion.id) == Number(this.countQuestions) ){
@@ -151,14 +173,17 @@ export default {
         var newQuestion = this.getQuestionByNumber(qno)
         console.log(newQuestion)
         this.currentQuestion = newQuestion
+        this.enterQuestion(qno, String(this.time))
         this.checkQuestionArrowStatus()
         return newQuestion
       } else {
+        this.exitQuestion(this.currentQuestion.id, this.currentTime)
         this.saveQuestion(this.currentQuestion.id)
         console.log("setting to ", qno)
         var OthernewQuestion = this.getQuestionByNumber(qno)
         console.log(OthernewQuestion)
         this.currentQuestion = OthernewQuestion
+        this.enterQuestion(qno, this.currentTime)
         this.checkQuestionArrowStatus()
         return OthernewQuestion
       }
@@ -173,6 +198,7 @@ export default {
 
     // evaluator method
     handleEvaluate(){
+      this.exitQuestion(this.currentQuestion.id, this.currentTime)
       console.log("EVALUATION PROCESS BEGINNING")
       console.log("saving questions to state")
       this.setQuestions(this.questions)
@@ -195,7 +221,6 @@ export default {
       var choice = confirm("Do You Want to Start the Test?")
       if ( choice ){
         this.toggleTestVisibility = true
-        this.startTest = true
       } else {
         alert("Exiting..")
         this.handleExit()
@@ -224,6 +249,7 @@ export default {
       console.log(this.questions)
       this.startTestLoop()
       this.instartup = true;
+      this.startTest = true
       this.setQuestion(1);
       this.instartup = false;
       this.setTotalMarks()

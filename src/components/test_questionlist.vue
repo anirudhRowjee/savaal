@@ -25,6 +25,13 @@
 
       <b-btn class='eval_cta' @click='emitEvaluateTest()' variant='success'> Submit Test </b-btn>
       <br>
+      <b-dropdown style='width:100%' text='legend' size='sm' variant='outline-dark'>
+        <b-dropdown-item variant='success'> Answered </b-dropdown-item>
+        <b-dropdown-item variant='primary'> Not Answered </b-dropdown-item>
+        <b-dropdown-item variant='warning'> Answered and Marked for Evaluation</b-dropdown-item>
+        <b-dropdown-item variant='danger'> Not Answered and Marked for Evaluation</b-dropdown-item>
+      </b-dropdown>
+      <br>
     </b-card>
   </div>
 </template>
@@ -62,7 +69,12 @@ export default {
     },
 
     emitEvaluateTest() {
-      this.$emit('evaluate-test')
+      var answer = confirm("Send for Evaluation?")
+      if( answer ){
+        this.$emit('evaluate-test')
+      } else {
+        // 
+      }
     },
 
     getColorFromQuestion(question){

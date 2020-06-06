@@ -49,6 +49,9 @@ export default new Vuex.Store({
     },
     setQuestions(state, questions){
       state.test.questions = questions
+    },
+    Log(state, event){
+      state.test.log.push(event)
     }
   },
   actions: {
@@ -84,6 +87,9 @@ export default new Vuex.Store({
     },
     getGeneratedAnswerString(state){
       return state.test.generated_answerstring
+    },
+    getLog(state){
+      return state.test.log
     }
   }
 })
