@@ -119,10 +119,13 @@
             class='shadow-lg'
             >
             <strong>
-              You can now Write the test.  All the best!
+              You can now write the test. All the best!
             </strong>
             <br>
             <font-awesome-icon icon='trophy' />
+            <br>
+            <span style='background-color: pink'> Savaal does not provide any questions. </span>
+            <br>
             <hr>
 
               <b-form-group 

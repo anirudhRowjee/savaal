@@ -26,10 +26,10 @@
                 buttons
                 button-variant='outline-primary'
                 size='md'
-                v-model='qlist[q.id - 1].selectedOption'
                 :id='"choice_"+q.id'
                 :options='options'
                 required
+                @change='changeOption(q.id-1, $event)'
                 @input='allAnswersMarked()'
                 >
                 <template v-slot:first>
@@ -130,19 +130,17 @@ export default {
     setGeneratedAnswerString: 'setGeneratedAnswerString',
     }),
 
+    changeOption(question, event){
+      // console.log(event)
+      // console.log(question)
+      // console.log(`changed ${question} to ${event}`)
+      this.qlist[question].selectedOption = event
+    },
+
     allAnswersMarked(){
       this.allAnswersMarkedFlag =  this.qlist.every(record => {
         return !(record.selectedOption == 'X')
       })
-    },
-
-    sanitizeCodexString(codex){
-      var newCodex = codex
-        .trim()
-        .split(' ')
-        .map( x => x.toLowerCase().trim())
-        .join(" ")
-      return newCodex
     },
 
     generaterAnswerList(length){
@@ -156,29 +154,13 @@ export default {
       return finalist
     },
 
-    validateCodex(codex){
-      // sanitize and validate the codex
-      var sanitized = this.sanitizeCodexString(codex)
-      console.log("Sanitized ", sanitized)
-      let re_validator = /([\d][-][a-dA-D])/g;
-
-      var validatorArray = 
-        sanitized
-        .split(' ')
-        .map(piece => {
-            return piece.match(re_validator) || false
-        })
-        .map(e =>  !!e)
-      return validatorArray.every(per => per == true) && validatorArray.length ==
-        this.getQuestionsCount
-    },
 
     getCodexFromQuestions(){
       var codexList = this.questions.map(q => {
         return `${q.id}-${q.selectedOption.toLowerCase()}`
       }).join(" ")
-      console.log("Codex From List")
-      console.log(codexList)
+      // console.log("Codex From List")
+      // console.log(codexList)
       return codexList
     },
 
@@ -186,15 +168,15 @@ export default {
       var codexList = list.map(q => {
         return `${q.id}-${q.selectedOption.toLowerCase()}`
       }).join(" ")
-      console.log("Codex From List")
-      console.log(codexList)
+      // console.log("Codex From List")
+      // console.log(codexList)
       return codexList
     },
 
     handleCodexSubmit(){
-      console.log("Sanitizing Codex")
+      // console.log("Sanitizing Codex")
       this.submitted_codex = this.getCodexFromList(this.qlist)
-      console.log("generated ", this.generated_codex)
+      // console.log("generated ", this.generated_codex)
       this.setSubmittedAnswerString(this.submitted_codex)
       this.setGeneratedAnswerString(this.generated_codex)
       this.$router.push('/results')
@@ -211,10 +193,10 @@ export default {
   mounted() {
     this.questions = this.getQuestions
     if ( this.questions && this.getQuestionsCount){
-      console.log(this.questions)
+      // console.log(this.questions)
       this.generated_codex = this.getCodexFromQuestions()
       this.qlist = this.generaterAnswerList(Number(this.getQuestionsCount))
-      console.log(this.qlist)
+      // console.log(this.qlist)
       window.scrollTo(0, 0)
       this.$ua.trackView('/correction')
     } else {

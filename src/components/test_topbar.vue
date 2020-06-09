@@ -68,7 +68,7 @@ export default {
     },
     handleTimeChange(time){
       this.$emit('time-changed', time)
-      console.log("Current Time is", time)
+      // console.log("Current Time is", time)
       this.currentTime = time
     },
     emitEvaluateTest() {

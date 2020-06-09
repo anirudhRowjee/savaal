@@ -14,7 +14,7 @@
 * [ ] only left arrow still somehow showing up when only one question is there
 
 ## Features/ Small Things
-* [ ] Implement event bus based solving analytics - time monitoring, accuracy, etc
+* [x] Implement event bus based solving analytics - time monitoring, accuracy, etc
 * [x] Form Flow in Home.vue
 * [ ] Tooltips
 * [x] Prevent L-Arrow on question 1 and R-Arrow on last Quesiton (Test.vue)

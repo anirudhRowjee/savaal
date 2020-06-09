@@ -101,7 +101,7 @@ export default {
         flag = flag + 1
       }
 
-      console.log("genereated Questions")
+      // console.log("genereated Questions")
       return questions;
     },
 
@@ -111,7 +111,7 @@ export default {
 
     getQuestionByNumber(number){
       var question = this.questions.filter( q => q.id == number)[0]
-      console.log(question)
+      // console.log(question)
       return question
     },
 
@@ -122,7 +122,7 @@ export default {
 
     // logging for analysis
     enterQuestion(q_no, time){
-      console.log("entering question ", q_no)
+      // console.log("entering question ", q_no)
       this.Log({
         'id': q_no,
         'event': 'enter',
@@ -130,7 +130,7 @@ export default {
       })
     },
     exitQuestion(q_no, time){
-      console.log("exiting question ", q_no)
+      // console.log("exiting question ", q_no)
       this.Log({
         'id': q_no,
         'event': 'exit',
@@ -169,9 +169,9 @@ export default {
 
       if ( this.instartup ){
         // set to question 1 without saving
-        console.log("setting to ", qno)
+       //  console.log("setting to ", qno)
         var newQuestion = this.getQuestionByNumber(qno)
-        console.log(newQuestion)
+        // console.log(newQuestion)
         this.currentQuestion = newQuestion
         this.enterQuestion(qno, String(this.time))
         this.checkQuestionArrowStatus()
@@ -179,9 +179,9 @@ export default {
       } else {
         this.exitQuestion(this.currentQuestion.id, this.currentTime)
         this.saveQuestion(this.currentQuestion.id)
-        console.log("setting to ", qno)
+        // console.log("setting to ", qno)
         var OthernewQuestion = this.getQuestionByNumber(qno)
-        console.log(OthernewQuestion)
+        // console.log(OthernewQuestion)
         this.currentQuestion = OthernewQuestion
         this.enterQuestion(qno, this.currentTime)
         this.checkQuestionArrowStatus()
@@ -190,7 +190,7 @@ export default {
     },
 
     handleUpdateQuestion( e ){
-      console.log("updating question ", e)
+      // console.log("updating question ", e)
       this.questions[e].selectedOption = this.currentQuestion.selectedOption
       this.questions[e].eval = this.currentQuestion.eval
 
@@ -199,18 +199,18 @@ export default {
     // evaluator method
     handleEvaluate(){
       this.exitQuestion(this.currentQuestion.id, this.currentTime)
-      console.log("EVALUATION PROCESS BEGINNING")
-      console.log("saving questions to state")
+      // console.log("EVALUATION PROCESS BEGINNING")
+      // console.log("saving questions to state")
       this.setQuestions(this.questions)
-      console.log("reading questions from state")
-      console.log(this.getQuestions)
+      // console.log("reading questions from state")
+      // console.log(this.getQuestions)
       this.$router.push('/correction')
     },
 
     handleExit(){
       var c = confirm("Do You Really Want to Exit?")
       if ( c == true ){
-        console.log("Exiting ...")
+        // console.log("Exiting ...")
         this.$router.push('/')
       } else {
         alert("get back!")
@@ -246,7 +246,7 @@ export default {
       this.$router.push('/')
     } else {
       this.questions = this.getTestQuestions(Number(this.countQuestions));
-      console.log(this.questions)
+      // console.log(this.questions)
       this.startTestLoop()
       this.instartup = true;
       this.startTest = true

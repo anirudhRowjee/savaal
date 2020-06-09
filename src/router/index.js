@@ -58,6 +58,7 @@ Vue.use(VueAnalytics, {
   appName: 'savaal',
   appVersion: '1.0',
   trackingId: 'UA-168750451-1',
+  trackPage: true,
 
   globalDimensions: [
       { dimension: 1, value: 'FirstDimension' },
