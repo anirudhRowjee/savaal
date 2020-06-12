@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
@@ -15,16 +14,16 @@ import { faCoffee, faPaperPlane, faCheck, faArrowRight, faArrowLeft, faHeart, fa
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
-  faCoffee,
-  faArrowRight,
-  faArrowLeft,
-  faHeart,
-  faBook, 
-  faPencilAlt, 
-  faTrophy ,
-  faClock,
-  faCheck,
-  faPaperPlane
+	faCoffee,
+	faArrowRight,
+	faArrowLeft,
+	faHeart,
+	faBook, 
+	faPencilAlt, 
+	faTrophy ,
+	faClock,
+	faCheck,
+	faPaperPlane
 
 )
 
@@ -37,7 +36,7 @@ Vue.use(BootstrapVue)
 Vue.config.productionTip = true
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+	router,
+	store,
+	render: h => h(App)
 }).$mount('#app')
